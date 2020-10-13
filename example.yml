@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  tasks:
+    - name: get list of installed kernel packages
+      command: rpm -q kernel
+      register: packages
+      changed_when: no
+
+    - name: print latest kernel package
+      debug:
+        msg: "{{ packages.stdout | rpm_sort | last }}"
